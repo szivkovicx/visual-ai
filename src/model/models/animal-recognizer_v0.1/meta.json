@@ -1,0 +1,8 @@
+{
+    "name": "animal-recognizer",
+    "version": "v0.1",
+    "labels": [
+        "dog",
+        "cat"
+    ]
+}
