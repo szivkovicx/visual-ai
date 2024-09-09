@@ -1,0 +1,101 @@
+<div class="flex flex-col items-center h-lvh bg-neutral-100 gap-[50px]">
+  <img src="/logo.png" class="w-[350] h-[120] mt-[50px]" />
+
+  <div class="flex flex-row">
+    <div class="flex flex-col justify-center items-center">
+      <div class="flex flex-col min-h-[350px] gap-y-6">
+        <!-- Start Model Selector -->
+          <div *ngIf="models" class="w-[350px]">
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose a model</label>
+            <select (change)="handleModelSelect($event)" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected>Choose a model</option>
+              <option *ngFor="let model of models" [value]="model">
+                  {{model}}
+              </option>
+            </select>          
+          </div>
+        <!-- End Model Selector -->
+
+          <!-- Start Drop Zone -->
+          <div
+            *ngIf="selectedModel"
+            class="relative flex flex-col outline-gray-500 outline-2 -outline-offset-4 outline-dashed w-[350px] h-[200px] rounded-2xl items-center justify-center"
+          >
+            <input
+              #fileInput
+              type="file"
+              (change)="handleChange($event)"
+              [accept]="allowedFileTypes"
+              class="absolute w-full h-full cursor-pointer opacity-0 top-0 left-0"
+            />
+
+            <span class="mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-10 h-10">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+              </svg>
+            </span>
+
+            <p class="text-center text-base max-w-[90%]">
+              Upload an image <br />
+            </p>
+
+            <button
+              type="button"
+              (click)="fileInput.click()"
+              class="z-10 mt-6 text-green-50 px-6 py-3 bg-green-500 rounded-lg font-medium text-base hover:bg-green-600 ease-in-out"
+            >
+              Browse File
+            </button>
+          </div>
+        <!-- End Drop Zone -->
+
+        <!-- Start Preview Image -->
+        <div
+          *ngIf="fileUrl && uploadFile"
+          [ngStyle]="{ 'background-image': 'url(' + fileUrl + ')' }"
+          class="flex flex-col justify-end border w-[350px] h-[350px] rounded-2xl items-center relative bg-cover bg-center overflow-hidden bg-gray-300"
+        >
+          <div
+            class="flex flex-col w-full p-4 bg-white"
+          >
+            <p class="mb-6">{{ uploadFile?.name }}</p>
+
+            <div class="flex gap-3 justify-start">
+              <button
+                type="button"
+                [disabled]="isUploading"
+                (click)="handleUploadFile()"
+                class="text-sm font-medium w-[50%] border border-blue-500 px-4 py-3 bg-blue-500 text-blue-50 rounded-lg hover:bg-blue-600 ease-in-out disabled:bg-gray-300 disabled:border-gray-300"
+              >
+                {{ !isUploading ? 'DETECT' : 'DETECTING...'}}
+              </button>
+              <button
+              type="button"
+              [disabled]="isUploading"
+              (click)="handleRemovesFile()"
+              class="text-sm font-medium w-[50%] border border-red-500 px-4 py-3 rounded-lg text-red-500 hover:bg-red-500 hover:text-white ease-in-out"
+              >
+                REMOVE
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- End Preview Image -->
+      </div>
+    </div>
+
+    <div class="flex flex-col justify-center items-center">
+      <div class="flex flex-col min-h-[350px] gap-y-6">
+        <!-- Start Charts -->
+          <apx-chart
+            *ngIf="chartOptions"
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [labels]="chartOptions.labels"
+            [responsive]="chartOptions.responsive"
+          ></apx-chart>
+        <!-- End Charts -->
+      </div>
+    </div>
+  </div>
+</div>
