@@ -1,0 +1,1 @@
+pushd irtrainer && mvn -q compile exec:java && popd

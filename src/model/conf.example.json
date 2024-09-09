@@ -1,0 +1,17 @@
+{
+    "name": "test-model-name",
+    "version": "v0.1",
+    "training_parameters": {
+        "resolution": [500, 500],
+        "learning_rate": 0.001,
+        "seed": 123
+    },
+    "labels": [
+        {
+            "feature": "label-a",
+            "data": [
+                "./path/to/image.format"
+            ]
+        }
+    ]
+}
